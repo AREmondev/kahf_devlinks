@@ -1,11 +1,9 @@
 import express from 'express';
 import {
   getUserProfile,
-  getAllUsers,
-  createUser,
-  updateUser,
-  deleteUser,
   updateProfile,
+  generateShareLink,
+  getSharedProfile,
 } from '../../controllers/v1/userController';
 import {
   removeLink,
@@ -187,5 +185,76 @@ router.delete('/links/:linkId', protect, removeLink);
  *         description: Unauthorized
  */
 router.get('/links', protect, getUserLinks);
+
+/**
+ * @swagger
+ * /users/generate-share-link:
+ *   get:
+ *     summary: Generate a share link for the user's profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Share link generated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 shareLink:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+router.get('/generate-share-link', protect, generateShareLink);
+
+/**
+ * @swagger
+ * /users/share/{token}:
+ *   get:
+ *     summary: Get shared user profile
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Shared profile retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     profileImage:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     firstName:
+ *                       type: string
+ *                     lastName:
+ *                       type: string
+ *                     links:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Link'
+ *       404:
+ *         description: Shared profile not found
+ *       500:
+ *         description: Server error
+ */
+router.get('/share/:token', getSharedProfile);
 
 export default router;

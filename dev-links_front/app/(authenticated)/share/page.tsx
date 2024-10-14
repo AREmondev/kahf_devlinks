@@ -1,18 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/InputField";
 import { FaTwitter, FaFacebook, FaLinkedin, FaCopy } from "react-icons/fa";
+import { generateShareLink, getProfile } from "@/services/profile.service";
+import { useUserProfileStore } from "@/store/userProfileStore";
+import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const ShareLinksPage: React.FC = () => {
   const [profileLink, setProfileLink] = useState(
     "https://devlinks.com/yourprofile"
   );
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(profileLink);
-    alert("Link copied to clipboard!");
+  const copyToClipboard = (url: string) => {
+    navigator.clipboard.writeText(url);
+    toast.success("Link copied to clipboard!");
   };
 
   const shareOnTwitter = () => {
@@ -35,6 +39,44 @@ const ShareLinksPage: React.FC = () => {
     )}`;
     window.open(linkedInUrl, "_blank");
   };
+  const { data: session } = useSession();
+  const [shareLink, setShareLink] = useState<string | null>(null);
+  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const setUserProfile = useUserProfileStore((state) => state.updateProfile);
+  const fetchProfile = async () => {
+    try {
+      const response = await getProfile();
+      setUserProfile(response.data);
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    }
+  };
+  useEffect(() => {
+    // get profile from api
+    if (userProfile.shareToken) {
+      setProfileLink(
+        `${window.location.origin}/preview/${userProfile.shareToken}`
+      );
+    }
+  }, [userProfile.shareToken]);
+  useEffect(() => {
+    if (session?.accessToken) {
+      fetchProfile();
+    }
+  }, [setUserProfile, session?.accessToken]);
+  const [loading, setLoading] = useState(false);
+
+  const handleGenerateShareLink = async () => {
+    setLoading(true);
+    try {
+      const response = await generateShareLink();
+      setShareLink(response.shareLink);
+      setUserProfile({ ...userProfile, shareToken: response.shareLink });
+    } catch (error) {
+      console.error("Failed to generate share link:", error);
+    }
+    setLoading(false);
+  };
 
   return (
     <div className="container min-h-screen mx-auto px-4 py-8">
@@ -50,7 +92,7 @@ const ShareLinksPage: React.FC = () => {
           <InputField
             label=""
             name="profileLink"
-            value={profileLink}
+            value={userProfile.shareToken && profileLink}
             variant="secondary"
             className="flex-grow"
           />
@@ -60,7 +102,14 @@ const ShareLinksPage: React.FC = () => {
             outline
             className="w-fit min-w-fit flex-1"
             icon={<FaCopy />}
-            onClick={copyToClipboard}
+            onClick={() => copyToClipboard(profileLink)}
+          />
+          <Button
+            className="w-fit min-w-fit flex-1"
+            onClick={handleGenerateShareLink}
+            loading={loading}
+            title={shareLink ? "Regenerate Share Link" : "Generate Share Link"}
+            disabled={loading}
           />
         </div>
       </div>

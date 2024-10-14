@@ -12,5 +12,15 @@ export const updateProfile = async (data: FormData) => {
 
 export const getProfile = async () => {
   const response = await apiRequest("get", "/users/profile");
-  return response;
+  return response.data;
+};
+
+export const generateShareLink = async () => {
+  const response = await apiRequest("get", "/users/generate-share-link");
+  return response.data;
+};
+
+export const getSharedProfile = async (token: string) => {
+  const response = await apiRequest("get", `/users/share/${token}`);
+  return response.data;
 };

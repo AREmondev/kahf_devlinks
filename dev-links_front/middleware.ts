@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Define the protected routes that require authentication
-const protectedRoutes = ["/links", "/profile", "/preview"];
+const protectedRoutes = ["/link", "/profile", "/share"];
 
 // Define the public routes that should be inaccessible to authenticated users
 const publicRoutes = ["/login", "/signup"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  //   console.log(req.cookies);
+  console.log("req.cookies", req.cookies);
   // Function to get the authentication token from cookies
   const getAuthToken = () => {
     const token = req.cookies.get("next-auth.session-token")?.value;
@@ -47,5 +47,5 @@ export function middleware(req: NextRequest) {
 
 // Configure the middleware to run on specific routes
 export const config = {
-  matcher: ["/links", "/profile", "/preview", "/login", "/signup"],
+  matcher: ["/link", "/profile", "/share", "/login", "/signup"],
 };

@@ -50,6 +50,7 @@ export interface IUser extends Document {
   password: string;
   profileImage?: string;
   refreshToken?: string;
+  shareToken?: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -88,8 +89,8 @@ const UserSchema: Schema<IUser> = new Schema(
       type: String,
       default: '',
     },
-
     refreshToken: { type: String },
+    shareToken: { type: String, unique: true, sparse: true },
   },
   { timestamps: true }
 );

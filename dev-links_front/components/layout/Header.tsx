@@ -42,11 +42,11 @@ const Header: React.FC = () => {
   const fetchProfile = async () => {
     try {
       const response = await getProfile();
-      console.log("response", response.data.data);
-      if (response.data.data) {
+      console.log("response", response.data);
+      if (response.data) {
         setProfile({
           ...userProfile,
-          ...response.data.data,
+          ...response.data,
         });
       }
 

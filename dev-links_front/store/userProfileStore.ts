@@ -11,6 +11,7 @@ interface UserProfile {
   email: string;
   profileImage: string;
   links: Link[];
+  shareToken: string;
 }
 
 interface UserProfileStore {
@@ -30,6 +31,7 @@ const initialUserProfile: UserProfile = {
   email: "",
   profileImage: "",
   links: [],
+  shareToken: "",
 };
 
 export const useUserProfileStore = create<UserProfileStore>((set) => ({

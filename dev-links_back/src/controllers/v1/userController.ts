@@ -4,6 +4,8 @@ import User from '../../models/User';
 import { Storage } from '@google-cloud/storage';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
+import crypto from 'crypto';
+import Link from '../../models/Link';
 
 const storage = new Storage({
   keyFilename: path.join(__dirname, '../../../google-cloud-key.json'),
@@ -26,70 +28,18 @@ export const getUserProfile = async (
       return;
     }
 
-    res.status(200).json({ success: true, data: req.user });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getAllUsers = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const users = await User.find().select('-password');
-    res.status(200).json(users);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const createUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const updateUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const user = await User.findById(req.user._id).select('+shareToken');
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ success: false, message: 'User not found' });
       return;
     }
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-};
 
-export const deleteUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-    res.status(200).json({ message: 'User deleted successfully' });
+    const userProfile = {
+      ...user.toObject(),
+      shareToken: user.shareToken ? `${user.shareToken}` : null,
+    };
+
+    res.status(200).json({ success: true, data: userProfile });
   } catch (error) {
     next(error);
   }
@@ -130,5 +80,67 @@ export const updateProfile = async (
   } catch (error) {
     console.error('Error updating profile:', error);
     res.status(500).json({ message: 'Error updating profile', error });
+  }
+};
+
+export const generateShareLink = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = (req as any).user._id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    // Generate a unique token
+    const token = crypto.randomBytes(16).toString('hex');
+
+    // Save the token to the user
+    user.shareToken = token;
+    await user.save();
+
+    res.status(200).json({ success: true, shareLink: `${token}` });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSharedProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { token } = req.params;
+    const user = await User.findOne({ shareToken: token }).select(
+      '-password -refreshToken'
+    );
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'Shared profile not found' });
+    }
+
+    const links = await Link.find({ user: user._id });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        profileImage: user.profileImage,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        links: links,
+      },
+    });
+  } catch (error) {
+    next(error);
   }
 };
