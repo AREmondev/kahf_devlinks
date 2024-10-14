@@ -88,6 +88,7 @@ const UserSchema: Schema<IUser> = new Schema(
       type: String,
       default: '',
     },
+
     refreshToken: { type: String },
   },
   { timestamps: true }

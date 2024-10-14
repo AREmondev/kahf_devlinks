@@ -40,7 +40,9 @@ const Button: React.FC<ButtonProps> = ({
     secondary: outline
       ? "bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white"
       : "bg-secondary text-white hover:bg-secondary-dark",
-    link: `bg-${bgColor} text-white hover:opacity-80`,
+    link: bgColor
+      ? `bg-${bgColor} text-white hover:opacity-80`
+      : "bg-primary text-white hover:bg-primary-dark",
     add: "bg-transparent border border-primary text-primary hover:bg-primary hover:text-white",
   };
 
@@ -55,6 +57,14 @@ const Button: React.FC<ButtonProps> = ({
       {title}
     </>
   );
+
+  if (variant === "link" && href) {
+    return (
+      <Link href={href} className="text-primary underline">
+        {content}
+      </Link>
+    );
+  }
 
   if (href) {
     return (

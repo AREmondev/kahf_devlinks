@@ -15,7 +15,7 @@ export function middleware(req: NextRequest) {
     const token = req.cookies.get("next-auth.session-token")?.value;
     return token;
   };
-  console.log("getAuthToken", getAuthToken());
+
   const token = getAuthToken();
   const isAuthenticated = Boolean(token);
 

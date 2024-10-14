@@ -1,34 +1,28 @@
-import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { api } from "@/utils/api";
 
-export const UseRefreshToken = () => {
-  const { data: session } = useSession();
-  const refresh = session?.refreshToken;
+export const useRefreshToken = () => {
+  const { data: session, update } = useSession();
 
   const refreshToken = async () => {
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-
-        {
-          refresh,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${session?.refreshToken}`, // Use access_token here
-          },
-        }
-      );
-
-      console.log("Refreshed");
-      // console.log("Refreshed", res.data);
+      const response = await api.post("/auth/refresh-token", {
+        refreshToken: session?.refreshToken,
+      });
 
       if (session) {
-        session.accessToken = res.data.accessToken;
+        await update({
+          ...session,
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        });
       }
+
+      return response.data.accessToken;
     } catch (error) {
-      console.log("Error refreshing token:", error);
+      signOut();
       console.error("Error refreshing token:", error);
+      throw error;
     }
   };
 

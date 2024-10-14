@@ -42,7 +42,7 @@ export const protect = async (
 
     req.user = user;
     req.user.id = user._id;
-    console.log(req.user);
+    console.log('user', req.user);
     next();
   } catch (error) {
     res

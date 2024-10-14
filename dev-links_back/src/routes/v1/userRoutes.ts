@@ -8,9 +8,9 @@ import {
   updateProfile,
 } from '../../controllers/v1/userController';
 import {
-  addLink,
   removeLink,
   getUserLinks,
+  addLinks,
 } from '../../controllers/v1/linkController';
 import { protect } from '../../middleware/authMiddleware';
 import { upload, handleLocalUpload } from '../../middleware/upload';
@@ -26,50 +26,50 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users:
- *   get:
- *     summary: Retrieve all users
+ * /users/links:
+ *   post:
+ *     summary: Add multiple links
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- *       401:
- *         description: Unauthorized
- */
-router.get('/', protect, getAllUsers);
-
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Create a new user
- *     tags: [Users]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UserInput'
+ *             type: object
+ *             properties:
+ *               links:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     platform:
+ *                       type: string
+ *                     url:
+ *                       type: string
  *     responses:
  *       201:
- *         description: Created user
+ *         description: Links added successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Link'
  *       400:
- *         description: Invalid input
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
  */
-router.post('/', createUser);
-
+router.post('/links', protect, addLinks);
 /**
  * @swagger
  * /users/profile:
@@ -147,95 +147,6 @@ router.put(
   handleLocalUpload,
   updateProfile
 );
-
-/**
- * @swagger
- * /users/{id}:
- *   put:
- *     summary: Update a user
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/UserUpdate'
- *     responses:
- *       200:
- *         description: Updated user
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       401:
- *         description: Unauthorized
- *       404:
- *         description: User not found
- */
-router.put('/:id', protect, updateUser);
-
-/**
- * @swagger
- * /users/{id}:
- *   delete:
- *     summary: Delete a user
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: User deleted
- *       401:
- *         description: Unauthorized
- *       404:
- *         description: User not found
- */
-router.delete('/:id', protect, deleteUser);
-
-/**
- * @swagger
- * /users/links:
- *   post:
- *     summary: Add a link
- *     tags: [Users]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - platform
- *               - url
- *             properties:
- *               platform:
- *                 type: string
- *                 enum: [facebook, twitter, linkedin, instagram, github, other]
- *               url:
- *                 type: string
- *     responses:
- *       201:
- *         description: Link added successfully
- *       401:
- *         description: Unauthorized
- */
-router.post('/links', protect, addLink);
 
 /**
  * @swagger

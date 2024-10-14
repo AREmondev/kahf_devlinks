@@ -70,24 +70,23 @@ const ShareLinksPage: React.FC = () => {
       </Text>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Button
-          variant="custom"
+          variant="link"
           title="Share on Twitter"
           icon={<FaTwitter size={24} />}
-          className=" bg-[#1DA1F2] hover:bg-[#1a91da] "
           onClick={shareOnTwitter}
         />
         <Button
-          variant="custom"
+          variant="link"
           title="Share on Facebook"
           icon={<FaFacebook size={24} />}
-          className=" bg-[#4267B2] hover:bg-[#365899] "
+          className=" !bg-[#4267B2] hover:bg-[#365899] "
           onClick={shareOnFacebook}
         />
         <Button
-          variant="custom"
+          variant="link"
           title="Share on LinkedIn"
           icon={<FaLinkedin size={24} />}
-          className="bg-[#0077B5] hover:bg-[#006699]"
+          className="!bg-[#0077B5] hover:bg-[#006699]"
           onClick={shareOnLinkedIn}
         />
       </div>

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export default axios.create({});
-
-export const axiosAuth = axios.create({
+export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+  },
 });

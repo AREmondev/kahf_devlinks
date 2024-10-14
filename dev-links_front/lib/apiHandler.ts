@@ -1,5 +1,5 @@
-import { axiosAuth } from "@/utils/api";
 import axios from "axios";
+import { api } from "@/utils/api";
 
 // Define a general API response structure
 
@@ -31,19 +31,19 @@ export const apiRequest = async (
     let response;
     switch (method) {
       case "get":
-        response = await axiosAuth.get(endpoint, payload);
+        response = await api.get(endpoint, payload);
         break;
       case "post":
-        response = await axiosAuth.post(endpoint, payload, header);
+        response = await api.post(endpoint, payload, header);
         break;
       case "put":
-        response = await axiosAuth.put(endpoint, payload, header);
+        response = await api.put(endpoint, payload, header);
         break;
       case "patch":
-        response = await axiosAuth.patch(endpoint, payload, header);
+        response = await api.patch(endpoint, payload, header);
         break;
       case "delete":
-        response = await axiosAuth.delete(endpoint, payload);
+        response = await api.delete(endpoint, payload);
         break;
       default:
         throw new Error(`Unsupported method: ${method}`);

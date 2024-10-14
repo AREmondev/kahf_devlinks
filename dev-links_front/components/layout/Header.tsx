@@ -16,12 +16,15 @@ import Button from "../ui/Button";
 import NextLink from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import UseAxiosAuth from "@/hooks/useAxioAuth";
+import UseAxiosAuth from "@/hooks/useAxiosAuth";
+import { useUserProfileStore } from "@/store/userProfileStore";
+import { getProfile } from "@/services/profile.service";
 
 const Header: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const axiosInstance = UseAxiosAuth();
+  const axiosAuth = UseAxiosAuth();
+
   const { data: session } = useSession();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -34,6 +37,31 @@ const Header: React.FC = () => {
   const handlePreview = () => {
     router.push("/preview");
   };
+  const setProfile = useUserProfileStore((state) => state.updateProfile);
+  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const fetchProfile = async () => {
+    try {
+      const response = await getProfile();
+      console.log("response", response.data.data);
+      if (response.data.data) {
+        setProfile({
+          ...userProfile,
+          ...response.data.data,
+        });
+      }
+
+      // return response.data;
+    } catch (error) {
+      console.log("error", error);
+    }
+    // return response.data;
+  };
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      fetchProfile();
+    }
+  }, [session?.accessToken]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -93,7 +121,7 @@ const Header: React.FC = () => {
             <Button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               icon={<FaUserCircle size={24} />}
-              title={`${session.user?.firstName} ${session.user?.lastName}`}
+              title={`${userProfile.firstName} ${userProfile.lastName}`}
               className="flex items-center gap-2"
             />
             {isDropdownOpen && (

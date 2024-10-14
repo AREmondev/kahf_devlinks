@@ -15,6 +15,7 @@ export const authService = {
     firstName: string,
     lastName: string
   ) => {
+    console.log("signup");
     const response = await apiRequest("post", "/auth/signup", {
       email,
       password,

@@ -4,8 +4,8 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import swaggerUi from 'swagger-ui-express';
-import v1AuthRoutes from './v1/routes/authRoutes';
-import v1UserRoutes from './v1/routes/userRoutes';
+import v1AuthRoutes from './routes/v1/authRoutes';
+import v1UserRoutes from './routes/v1/userRoutes';
 import errorHandler from './middleware/errorHandler';
 import connectDB from './config/database';
 import logger from './utils/logger';
@@ -14,9 +14,16 @@ import path from 'path';
 
 const app: Application = express();
 
+// Configure CORS
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+  })
+);
+
 // Middleware
 app.use(helmet());
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
@@ -40,7 +47,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Versioned Routes
 app.use('/api/v1/auth', v1AuthRoutes);
 app.use('/api/v1/users', v1UserRoutes);
+
+// Serve static files
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Error Handling
 app.use(errorHandler);
 

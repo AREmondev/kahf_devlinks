@@ -6,7 +6,6 @@ interface Link {
 }
 
 interface UserProfile {
-  image: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -18,12 +17,14 @@ interface UserProfileStore {
   userProfile: UserProfile;
   updateProfile: (profile: Partial<UserProfile>) => void;
   addLink: (link: Link) => void;
+  setLinks: (links: Link[]) => void;
   removeLink: (index: number) => void;
   updateLink: (index: number, link: Partial<Link>) => void;
+  setImageFile: (file: File) => void;
+  imageFile: File | null;
 }
 
 const initialUserProfile: UserProfile = {
-  image: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -33,6 +34,7 @@ const initialUserProfile: UserProfile = {
 
 export const useUserProfileStore = create<UserProfileStore>((set) => ({
   userProfile: initialUserProfile,
+  imageFile: null,
 
   updateProfile: (profile) =>
     set((state) => ({
@@ -44,6 +46,14 @@ export const useUserProfileStore = create<UserProfileStore>((set) => ({
       userProfile: {
         ...state.userProfile,
         links: [...state.userProfile.links, link],
+      },
+    })),
+
+  setLinks: (links: any) =>
+    set((state) => ({
+      userProfile: {
+        ...state.userProfile,
+        links: links,
       },
     })),
 
@@ -63,5 +73,10 @@ export const useUserProfileStore = create<UserProfileStore>((set) => ({
           i === index ? { ...l, ...link } : l
         ),
       },
+    })),
+
+  setImageFile: (file: File) =>
+    set((state) => ({
+      userProfile: { ...state.userProfile, imageFile: file },
     })),
 }));
