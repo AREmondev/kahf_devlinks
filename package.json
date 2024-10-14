@@ -1,0 +1,16 @@
+{
+  "name": "dev-links",
+  "version": "1.0.0",
+  "description": "Your project description",
+  "scripts": {
+    "install-all": "npm install && npm run install-frontend && npm run install-backend",
+    "install-frontend": "cd dev-links_front && npm install",
+    "install-backend": "cd dev-links_back && npm install",
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-frontend": "cd dev-links_front && npm run dev",
+    "start-backend": "cd dev-links_back && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  }
+}

@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* text color name example using color code */
+/* #787878 */
+
+:root {
+  --primary: #633bfe;
+  --background: #fafafa;
+  --bgSecondary: #ffffff;
+  --text-primary: #787878;
+  --text-dark: #343434;
+  --text-muted: #999999;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #633bfe;
+    --background: #0a0a0a;
+    --bgSecondary: #000;
+    --text-primary: #787878;
+    --text-dark: #ffffff;
+    --text-muted: #999999;
+  }
+}
+
+body {
+  font-family: "Roboto", sans-serif, Helvetica, sans-serif;
+  /* 
+  This CSS rule sets the background color of an element using a CSS variable.
+  --background is a custom property that should be defined elsewhere in the CSS.
+  It allows for easy theming and consistent styling across different elements.
+*/
+  /* background-color: var(--background); */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
