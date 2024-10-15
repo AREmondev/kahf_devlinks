@@ -25,7 +25,7 @@ export default function Home() {
             <div className="md:w-1/3 bg-gray-100 p-8 flex flex-col items-center justify-center">
               <div className="h-32 w-32 bg-primary rounded-full overflow-hidden mb-4">
                 <Image
-                  src="/placeholder-avatar.png"
+                  src="https://media.licdn.com/dms/image/v2/D5603AQHzA3L4PxtI0w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1705434442862?e=1734566400&v=beta&t=Im7kycgGZS6CPKD2UENZ713_feinksmh6HHm2zzvIaA"
                   alt="Profile"
                   width={128}
                   height={128}
@@ -35,25 +35,23 @@ export default function Home() {
                 variant="cardTitle"
                 className="text-text-dark font-bold mb-2"
               >
-                John Doe
+                Abdur Rahman
               </Text>
               <Text variant="small" className="text-text-dark text-center mb-6">
-                Full-stack Developer | Open Source Enthusiast
+                Full-stack Developer
               </Text>
               <div className="w-full space-y-3">
                 <Button
                   icon={<FaGithub />}
                   bgColor="black"
-                  href="https://github.com/johndoe"
-                  variant="link"
+                  href="https://github.com/AREmondev"
                   title="GitHub"
                   className="w-full"
                 />
                 <Button
                   icon={<FaLinkedin />}
                   bgColor="blue"
-                  href="https://linkedin.com/in/johndoe"
-                  variant="link"
+                  href="https://www.linkedin.com/in/abdurrahmanemon/"
                   title="LinkedIn"
                   className="w-full"
                 />

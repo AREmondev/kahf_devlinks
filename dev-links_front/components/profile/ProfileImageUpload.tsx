@@ -15,18 +15,12 @@ const ProfileImageUpload: React.FC<{}> = ({}) => {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const imageFileToUrl = (file: File) => {
-    const url = URL.createObjectURL(file);
-    setImage(url);
-  };
-
   const handleClick = () => {
     fileInputRef.current?.click();
   };
 
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const updateUserProfile = useUserProfileStore((state) => state.updateProfile);
-  const setImageFile = useUserProfileStore((state) => state.setImageFile);
   const updateProfileImage = async (imageFile: File) => {
     try {
       const formData = new FormData();
@@ -50,8 +44,6 @@ const ProfileImageUpload: React.FC<{}> = ({}) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       updateProfileImage(file);
-      setImageFile(file);
-      imageFileToUrl(file);
     }
   };
 
@@ -59,8 +51,11 @@ const ProfileImageUpload: React.FC<{}> = ({}) => {
     (state) => state.userProfile.profileImage
   );
 
+  console.log(profileImage);
+
   useEffect(() => {
     if (profileImage) {
+      console.log(profileImage);
       setImage(getMediaUrl(profileImage));
     }
   }, [profileImage]);

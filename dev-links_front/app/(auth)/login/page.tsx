@@ -33,11 +33,12 @@ export default function Login() {
 
     console.log(result);
 
-    // if (result?.error) {
-    //   setError(result.error);
-    // } else {
-    //   router.push("/dashboard");
-    // }
+    if (result?.ok && !result?.error) {
+      console.log("Login successful");
+      router.push("/profile");
+    } else {
+      setError("Invalid email or password");
+    }
     setLoading(false);
   };
 
