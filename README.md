@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Kahf DevLinks is a project that allows developers to create and manage their personal link-sharing pages, similar to Linktree but tailored for developers.
+Kahf DevLinks is a project that allows developers to create and manage their personal link-sharing pages.
 
 ## Technologies and Dependencies
 
@@ -28,7 +28,7 @@ This project uses the following main technologies and npm packages:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/kahf_devlinks.git
+   git clone https://github.com/AREmondev/kahf_devlinks.git
    cd kahf_devlinks
    ```
 
@@ -36,7 +36,7 @@ This project uses the following main technologies and npm packages:
 
    You have several options for installing dependencies:
 
-   a. Install dependencies for both frontend and backend:
+   Install dependencies for both frontend and backend:
 
    ```
    npm run install-all
@@ -44,19 +44,21 @@ This project uses the following main technologies and npm packages:
 
    This command will install dependencies for the main project, frontend, and backend.
 
-   b. Install dependencies for frontend only:
+   # Or alternatively:
+
+   Install dependencies for frontend only:
 
    ```
    npm run install-frontend
    ```
 
-   c. Install dependencies for backend only:
+   Install dependencies for backend only:
 
    ```
    npm run install-backend
    ```
 
-   d. Install dependencies separately:
+   Install dependencies separately:
 
    For frontend:
 
@@ -80,11 +82,11 @@ This project uses the following main technologies and npm packages:
      ```
      cd dev-links_front
      ```
-   - Copy the `.env.example` file to `.env.local`:
+   - Copy the `.env.example` file to `.env`:
      ```
-     cp .env.example .env.local
+     cp .env.example .env
      ```
-   - Open the `.env.local` file and fill in the necessary values
+   - Open the `.env` file and fill in the necessary values
 
    For Backend:
 
@@ -100,7 +102,7 @@ This project uses the following main technologies and npm packages:
 
 ## Environment Variables
 
-### Frontend (.env.local)
+### Frontend (.env)
 
 ```plaintext
 NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1/
@@ -159,25 +161,19 @@ npm run start-backend
 
 ## Development Workflow
 
-1. Start both frontend and backend:
-
-   ```
-   npm start
-   ```
-
-2. The frontend will be available at `http://localhost:3000`
-3. The backend API will be available at `http://localhost:8000`
+The frontend will be available at `http://localhost:3000`
+The backend API will be available at `http://localhost:8000`
 
 Remember to keep both the frontend and backend running while developing your application.
 
 ## Additional Information
 
-[Add any additional information, troubleshooting tips, or useful resources here]
+Will be added soon
 
 ## Contributing
 
-[Add instructions for how others can contribute to your project]
+Will be added soon
 
 ## License
 
-[Specify the license for your project]
+Will be added soon

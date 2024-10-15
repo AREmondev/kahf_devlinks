@@ -1,18 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUser } from '../../models/User';
 import User from '../../models/User';
-import { Storage } from '@google-cloud/storage';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import crypto from 'crypto';
 import Link from '../../models/Link';
-
-const storage = new Storage({
-  keyFilename: path.join(__dirname, '../../../google-cloud-key.json'),
-  projectId: 'kahf-438516',
-});
-
-const bucket = storage.bucket('kahf');
 
 // @desc    Get current user profile
 // @route   GET /api/users/profile
