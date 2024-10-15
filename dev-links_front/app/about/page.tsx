@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import { FaLink, FaShare, FaUserPlus } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 const AboutPage = () => {
+  const { data: session } = useSession();
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-light to-primary-dark py-16 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden">
@@ -56,7 +59,7 @@ const AboutPage = () => {
               variant="primary"
               title="Get Started with DevLinks"
               className="px-8 py-3"
-              href="/signup"
+              href={session?.accessToken ? "/profile" : "/signup"}
             />
           </div>
         </div>

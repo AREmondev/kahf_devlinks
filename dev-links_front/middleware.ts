@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Define the protected routes that require authentication
-const protectedRoutes = ["/link", "/profile", "/share"];
+const protectedRoutes = ["/links", "/profile", "/share"];
 
 // Define the public routes that should be inaccessible to authenticated users
 const publicRoutes = ["/login", "/signup"];
@@ -47,5 +47,5 @@ export function middleware(req: NextRequest) {
 
 // Configure the middleware to run on specific routes
 export const config = {
-  matcher: ["/link", "/profile", "/share", "/login", "/signup"],
+  matcher: ["/links", "/profile", "/share", "/login", "/signup"],
 };
