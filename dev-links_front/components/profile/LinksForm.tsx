@@ -1,5 +1,5 @@
-import LinkItem from "@/components/profile/LinkItem";
 import DragAndDrop from "@/components/profile/DragAndDrop";
+import LinkItem from "../links/LinkItem";
 
 export default function LinksForm() {
   const links = [
@@ -12,7 +12,7 @@ export default function LinksForm() {
       <h2 className="text-xl font-semibold mb-4">Customize Your Links</h2>
       <DragAndDrop>
         {links.map((link) => (
-          <LinkItem key={link.id} platform={link.platform} url={link.url} />
+          <LinkItem key={link.id} url={link.url} />
         ))}
       </DragAndDrop>
       <button className="mt-4 text-blue-500">+ Add new link</button>
