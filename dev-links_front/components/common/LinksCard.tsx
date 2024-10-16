@@ -51,6 +51,9 @@ const LinksCard = () => {
               <Text variant="base" className="text-text-dark font-medium">
                 {userProfile.email}
               </Text>
+              <Text variant="base" className="text-text-dark font-medium">
+                {userProfile.firstName} {userProfile.lastName}
+              </Text>
             </div>
           </div>
           <div className="flex w-full flex-col items-center justify-center gap-2.5">

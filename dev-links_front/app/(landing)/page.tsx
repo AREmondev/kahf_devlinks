@@ -66,9 +66,7 @@ export default function Home() {
                 Welcome to My DevLinks!
               </Text>
               <Text variant="base" className="text-text-muted ">
-                I'm passionate about creating amazing web experiences and
-                sharing my knowledge with the developer community. Explore my
-                projects, watch my tutorials, or connect with me professionally.
+                I'm passionate about creating amazing web experiences.
               </Text>
               <div className="space-y-4">
                 <Button

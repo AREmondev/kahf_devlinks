@@ -4,6 +4,71 @@
 
 Kahf DevLinks is a project that allows developers to create and manage their personal link-sharing pages.
 
+## Screenshots and Features
+
+Here are some key features of the Kahf DevLinks project along with brief descriptions:
+
+### Landing Page
+
+![Landing Page Screenshot](path/to/home.png)
+
+The main landing page provides:
+
+- An overview of the Kahf DevLinks project
+- Key features and benefits of using the platform
+- Call-to-action buttons for signing up or logging in
+
+### Authentication
+
+![Authentication Screenshot](path/to/login.png)
+![Authentication Screenshot](path/to/signup.png)
+
+The authentication system includes:
+
+- A login page for existing users
+- A signup page for new users to create an account
+- Secure user authentication and authorization
+
+### Profile Management
+
+![Profile Management Screenshot](path/to/profile_screenshot.png)
+
+In the profile management section, users can:
+
+- View their current profile information
+- Edit personal details such as name and email
+- Upload or update their profile image
+
+### Link Management
+
+![Link Management Screenshot](path/to/link_management_screenshot.png)
+
+The link management page allows users to:
+
+- Add new links to their profile
+- Edit existing links (URL, Platform)
+- View all current links associated with their profile
+- Rearrange links using drag-and-drop functionality
+
+### Share Page
+
+![Share Page Screenshot](path/to/share_screenshot.png)
+
+The share page enables users to:
+
+- Generate a shareable link for their profile
+- Copy the link to clipboard for easy sharing
+- (Optional) Share directly to social media platforms
+
+### Preview Mode
+
+![Preview Mode Screenshot](path/to/preview_screenshot.png)
+
+The preview mode allows users to:
+
+- See how their link-sharing page will appear to visitors
+- View their profile information as it will be displayed publicly
+
 ## Technologies and Dependencies
 
 This project uses the following main technologies and npm packages:
@@ -14,6 +79,7 @@ This project uses the following main technologies and npm packages:
 - Tailwind CSS: Utility-first CSS framework
 - React DnD: Drag and drop for React
 - Axios: Promise-based HTTP client for making API requests
+- NextAuth: Authentication for Next.js
 - [Add any other major dependencies you're using]
 
 ## Setup Instructions

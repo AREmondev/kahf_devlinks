@@ -33,7 +33,7 @@ export default function Login() {
 
     console.log(result);
 
-    if (result?.ok && !result?.error) {
+    if (result?.ok) {
       console.log("Login successful");
       router.push("/profile");
     } else {
