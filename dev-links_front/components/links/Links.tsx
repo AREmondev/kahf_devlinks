@@ -124,7 +124,7 @@ const Links = () => {
               ref={provided.innerRef}
               className="flex flex-col w-full gap-5"
             >
-              {fields.map((field, index) => (
+              {fields.map((field: any, index) => (
                 <Draggable key={field.id} draggableId={field.id} index={index}>
                   {(provided) => (
                     <div

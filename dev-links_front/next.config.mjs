@@ -3,7 +3,12 @@ const nextConfig = {
   reactStrictMode: false,
   output: "standalone",
   images: {
-    domains: ["localhost", "media.licdn.com"],
+    domains: [
+      "localhost",
+      "https://devlinks-back.onrender.com",
+      "devlinks-back.onrender.com",
+      "media.licdn.com",
+    ],
     remotePatterns: [
       {
         protocol: "http",

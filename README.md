@@ -31,7 +31,7 @@ The authentication system includes:
 
 ### Profile Management
 
-![Profile Management Screenshot](path/to/profile_screenshot.png)
+![Profile Management Screenshot](path/to/profile.png)
 
 In the profile management section, users can:
 
@@ -41,7 +41,7 @@ In the profile management section, users can:
 
 ### Link Management
 
-![Link Management Screenshot](path/to/link_management_screenshot.png)
+![Link Management Screenshot](path/to/links.png)
 
 The link management page allows users to:
 
@@ -52,7 +52,7 @@ The link management page allows users to:
 
 ### Share Page
 
-![Share Page Screenshot](path/to/share_screenshot.png)
+![Share Page Screenshot](path/to/share.png)
 
 The share page enables users to:
 
@@ -62,7 +62,7 @@ The share page enables users to:
 
 ### Preview Mode
 
-![Preview Mode Screenshot](path/to/preview_screenshot.png)
+![Preview Mode Screenshot](path/to/preview.png)
 
 The preview mode allows users to:
 
@@ -80,7 +80,6 @@ This project uses the following main technologies and npm packages:
 - React DnD: Drag and drop for React
 - Axios: Promise-based HTTP client for making API requests
 - NextAuth: Authentication for Next.js
-- [Add any other major dependencies you're using]
 
 ## Setup Instructions
 

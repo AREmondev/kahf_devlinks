@@ -54,7 +54,10 @@ export default function Home() {
             <Text variant="base" className="text-text-dark font-medium">
               {userProfile.email}
             </Text>
-            <Text variant="base" className="text-text-dark font-medium">
+            <Text
+              variant="base"
+              className="text-text-dark text-center font-medium"
+            >
               {userProfile.firstName} {userProfile.lastName}
             </Text>
           </div>
@@ -64,6 +67,7 @@ export default function Home() {
             <Button
               icon={<FaGithub />}
               bgColor="black"
+              // @ts-ignore
               href={link.url}
               // variant="link"
               title={

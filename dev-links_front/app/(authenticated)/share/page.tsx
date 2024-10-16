@@ -89,21 +89,26 @@ const ShareLinksPage: React.FC = () => {
           Your Profile Link
         </Text>
         <div className="flex items-center gap-4">
-          <InputField
-            label=""
-            name="profileLink"
-            value={userProfile.shareToken && profileLink}
-            variant="secondary"
-            className="flex-grow"
-          />
-          <Button
-            variant="primary"
-            title="Copy"
-            outline
-            className="w-fit min-w-fit flex-1"
-            icon={<FaCopy />}
-            onClick={() => copyToClipboard(profileLink)}
-          />
+          {userProfile.shareToken && (
+            <>
+              <InputField
+                label=""
+                name="profileLink"
+                value={userProfile.shareToken && profileLink}
+                variant="secondary"
+                className="flex-grow"
+              />
+              <Button
+                variant="primary"
+                title="Copy"
+                outline
+                className="w-fit min-w-fit flex-1"
+                icon={<FaCopy />}
+                onClick={() => copyToClipboard(profileLink)}
+              />
+            </>
+          )}
+
           <Button
             className="w-fit min-w-fit flex-1"
             onClick={handleGenerateShareLink}
@@ -113,32 +118,35 @@ const ShareLinksPage: React.FC = () => {
           />
         </div>
       </div>
-
-      <Text variant="subTitle" className="mb-4">
-        Share on Social Media
-      </Text>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Button
-          variant="link"
-          title="Share on Twitter"
-          icon={<FaTwitter size={24} />}
-          onClick={shareOnTwitter}
-        />
-        <Button
-          variant="link"
-          title="Share on Facebook"
-          icon={<FaFacebook size={24} />}
-          className=" !bg-[#4267B2] hover:bg-[#365899] "
-          onClick={shareOnFacebook}
-        />
-        <Button
-          variant="link"
-          title="Share on LinkedIn"
-          icon={<FaLinkedin size={24} />}
-          className="!bg-[#0077B5] hover:bg-[#006699]"
-          onClick={shareOnLinkedIn}
-        />
-      </div>
+      {userProfile.shareToken && (
+        <>
+          <Text variant="subTitle" className="mb-4">
+            Share on Social Media
+          </Text>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button
+              variant="link"
+              title="Share on Twitter"
+              icon={<FaTwitter size={24} />}
+              onClick={shareOnTwitter}
+            />
+            <Button
+              variant="link"
+              title="Share on Facebook"
+              icon={<FaFacebook size={24} />}
+              className=" !bg-[#4267B2] hover:bg-[#365899] "
+              onClick={shareOnFacebook}
+            />
+            <Button
+              variant="link"
+              title="Share on LinkedIn"
+              icon={<FaLinkedin size={24} />}
+              className="!bg-[#0077B5] hover:bg-[#006699]"
+              onClick={shareOnLinkedIn}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

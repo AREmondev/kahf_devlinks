@@ -1,0 +1,14 @@
+# Ignore all files in the dist directory
+dist/*
+
+# Ignore the vercel directory
+vercel/*
+
+# Ignore the node_modules directory
+node_modules/*
+
+# Ignore the .env file
+.env
+
+# Ignore the .package-lock.json file
+.package-lock.json

@@ -4,9 +4,11 @@ import InputField from "../ui/InputField";
 import Dropdown from "../ui/Dropdown";
 import { FaBars, FaTrash } from "react-icons/fa";
 import Text from "../ui/Text";
-import { FormData } from "./Links";
 import { deleteLink } from "@/services/links.service";
-
+import { Link } from "@/types/link";
+interface FormData {
+  links: Link[];
+}
 interface LinkItemProps {
   control: Control<FormData>;
   index: number;
@@ -25,7 +27,7 @@ const LinkItem: React.FC<LinkItemProps> = ({
     control,
   });
 
-  const { field: platformField, fieldState: platformFieldState } =
+  const { field: platformField, fieldState: platformFieldState }: any =
     useController({
       name: `links.${index}.platform`,
       control,
@@ -65,11 +67,6 @@ const LinkItem: React.FC<LinkItemProps> = ({
       !selectedPlatforms.includes(platform.value) ||
       platform.value === platformField.value
   );
-
-  const handleDelete = async () => {
-    const response = await deleteLink(idField.value);
-    console.log(response);
-  };
 
   return (
     <div className="flex flex-col gap-2.5">

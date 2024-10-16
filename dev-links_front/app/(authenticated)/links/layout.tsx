@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <div className=" dark:bg-background">
       <div className="p-5">
-        <Header title="Devlink" />
+        <Header />
         {/* <PreviewHeader /> */}
         {children}
       </div>
