@@ -170,11 +170,16 @@ This project uses the following main technologies and npm packages:
 ### Frontend (.env)
 
 ```plaintext
-NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1/
-NEXT_PUBLIC_MEDIA_URL=http://localhost:8000
-NEXTAUTH_SECRET=your_nextauth_secret
-NEXTAUTH_URL=http://localhost:3000/api/auth
+# Development
+NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXTAUTH_SECRET=GWtZcINHqLbktu92OIpBRfmRaaB0Seexp5ZEf/fG/Ag=
+
+# Production (commented out)
+# NEXT_PUBLIC_API_URL=https://devlinks-back.onrender.com
+# NEXTAUTH_URL=https://kahf-devlinks.vercel.app
 ```
+
+Note: Make sure to keep your `NEXTAUTH_SECRET` secure and not expose it in public repositories.
 
 ### Backend (.env)
 
