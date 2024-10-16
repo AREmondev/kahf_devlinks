@@ -42,6 +42,7 @@ export default function Home() {
               </Text>
               <div className="w-full space-y-3">
                 <Button
+                  target="_blank"
                   icon={<FaGithub />}
                   bgColor="black"
                   href="https://github.com/AREmondev"
@@ -49,6 +50,7 @@ export default function Home() {
                   className="w-full"
                 />
                 <Button
+                  target="_blank"
                   icon={<FaLinkedin />}
                   bgColor="blue"
                   href="https://www.linkedin.com/in/abdurrahmanemon/"

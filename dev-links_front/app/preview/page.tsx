@@ -13,7 +13,14 @@ import { useUserProfileStore } from "@/store/userProfileStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
-import { FaPlus, FaGithub, FaHome } from "react-icons/fa";
+import {
+  FaPlus,
+  FaGithub,
+  FaHome,
+  FaTwitter,
+  FaLinkedin,
+  FaYoutube,
+} from "react-icons/fa";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -59,7 +66,20 @@ export default function Home() {
         <div className="flex w-full flex-col items-center justify-center gap-2.5">
           {userProfile.links.map((link) => (
             <Button
-              icon={<FaGithub />}
+              icon={
+                link.platform === "youtube" ? (
+                  <FaYoutube />
+                ) : link.platform === "linkedin" ? (
+                  <FaLinkedin />
+                ) : link.platform === "github" ? (
+                  <FaGithub />
+                ) : link.platform === "twitter" ? (
+                  <FaTwitter />
+                ) : (
+                  ""
+                )
+              }
+              target="_blank"
               bgColor="black"
               href={link.url}
               // variant="link"

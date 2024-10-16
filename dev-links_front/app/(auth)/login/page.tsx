@@ -37,9 +37,9 @@ export default function Login() {
       console.log("Login successful");
       router.push("/profile");
     } else {
+      setLoading(false);
       setError("Invalid email or password");
     }
-    setLoading(false);
   };
 
   return (
@@ -73,7 +73,12 @@ export default function Login() {
             {error && <Text variant="error">{error}</Text>}
           </div>
           <div className="flex justify-end">
-            <Button type="submit" variant="primary" title="Log In" />
+            <Button
+              loading={loading}
+              type="submit"
+              variant="primary"
+              title="Log In"
+            />
           </div>
         </form>
         <div className="flex mt-10 justify-center items-center gap-1">

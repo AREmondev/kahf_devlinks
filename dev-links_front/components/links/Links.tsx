@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SectionCard from "../common/SectionCard";
@@ -10,6 +10,7 @@ import { FaPlus } from "react-icons/fa";
 import { Link } from "../../types/link";
 import { addLinks, deleteLink, getUserLinks } from "@/services/links.service";
 import { useUserProfileStore } from "@/store/userProfileStore";
+import { toast } from "react-toastify";
 
 interface FormData {
   links: Link[];
@@ -55,20 +56,23 @@ const Links = () => {
       links: response.data,
     });
   };
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (data: FormData) => {
-    console.log(data);
+    setLoading(true);
     try {
       const response = await addLinks(data.links);
-      console.log(response);
-      console.log(response.data);
+
       if (response.success) {
         fetchLinks();
+        toast.success("Links saved successfully");
+      } else {
+        toast.error("Failed to save links");
       }
-      // Handle successful submission (e.g., show a success message)
     } catch (error) {
       console.error("Failed to save links:", error);
-      // Handle error (e.g., show an error message)
+      toast.error("Failed to save links");
     }
+    setLoading(false);
   };
 
   const onDragEnd = (result: any) => {
@@ -82,11 +86,14 @@ const Links = () => {
     const response = await deleteLink(id);
     console.log(response);
     if (response.success) {
+      toast.success("Link deleted successfully");
       remove(index);
       setUserProfile({
         ...userProfile,
         links: userProfile.links.filter((link: any) => link._id !== id),
       });
+    } else {
+      toast.error("Failed to delete link");
     }
   };
   return (
@@ -140,6 +147,7 @@ const Links = () => {
               {links.length > 0 && (
                 <div className="flex items-center justify-end w-full">
                   <Button
+                    loading={loading}
                     type="submit"
                     title="Save"
                     variant="primary"

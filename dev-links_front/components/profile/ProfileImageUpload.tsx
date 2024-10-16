@@ -29,12 +29,13 @@ const ProfileImageUpload: React.FC<{}> = ({}) => {
       }
       const response = await updateProfile(formData);
       console.log("Response:", response);
-
+      console.log("User Profile:", response.data.user.profileImage);
       // Update the user profile in the store
       updateUserProfile({
         ...userProfile,
-        profileImage: response.data.profileImage,
+        profileImage: response.data.user.profileImage,
       });
+      setImage(getMediaUrl(response.data.user.profileImage));
       toast.success("Profile image updated successfully");
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -55,7 +56,7 @@ const ProfileImageUpload: React.FC<{}> = ({}) => {
 
   useEffect(() => {
     if (profileImage) {
-      console.log(profileImage);
+      console.log("setImage", profileImage);
       setImage(getMediaUrl(profileImage));
     }
   }, [profileImage]);

@@ -15,6 +15,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   loading?: boolean;
   disabled?: boolean;
+  target?: "_blank" | "_self" | "_parent" | "_top";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   loading = false,
   disabled = false,
+  target = "_self",
 }) => {
   const baseClasses =
     "flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-colors duration-200 ease-in-out";
@@ -68,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={buttonClasses}>
+      <Link target={target} href={href} className={buttonClasses}>
         {content}
       </Link>
     );

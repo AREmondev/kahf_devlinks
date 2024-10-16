@@ -3,7 +3,7 @@ import { getMediaUrl } from "@/lib/urls";
 import Image from "next/image";
 import Button from "../ui/Button";
 import React, { useEffect } from "react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa";
 import { useUserProfileStore } from "@/store/userProfileStore";
 import Text from "../ui/Text";
 import SectionCard from "./SectionCard";
@@ -56,9 +56,22 @@ const LinksCard = () => {
           <div className="flex w-full flex-col items-center justify-center gap-2.5">
             {userProfile.links.map((link) => (
               <Button
-                icon={<FaGithub />}
+                icon={
+                  link.platform === "youtube" ? (
+                    <FaYoutube />
+                  ) : link.platform === "linkedin" ? (
+                    <FaLinkedin />
+                  ) : link.platform === "github" ? (
+                    <FaGithub />
+                  ) : link.platform === "twitter" ? (
+                    <FaTwitter />
+                  ) : (
+                    ""
+                  )
+                }
                 bgColor="black"
                 href={link.url}
+                target="_blank"
                 // variant="link"
                 title={
                   link.platform === "youtube"
