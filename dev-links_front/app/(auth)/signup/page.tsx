@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { authService } from "@/services/auth";
+import { signup } from "@/services/auth.service";
 import Button from "@/components/ui/Button";
 import Text from "@/components/ui/Text";
 import InputField from "@/components/ui/InputField";
@@ -28,7 +28,7 @@ export default function Page() {
   const onSubmit = async (data: SignupFormData) => {
     setLoading(true);
     setError(null);
-    const response = await authService.signup(
+    const response = await signup(
       data.email,
       data.password,
       data.firstName,

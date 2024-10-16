@@ -19,6 +19,7 @@ import { useSession, signOut } from "next-auth/react";
 import UseAxiosAuth from "@/hooks/useAxiosAuth";
 import { useUserProfileStore } from "@/store/userProfileStore";
 import { getProfile } from "@/services/profile.service";
+import { logout } from "@/services/auth.service";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -30,8 +31,12 @@ const Header: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
-    await signOut({ redirect: false });
-    router.push("/login");
+    const response = await logout();
+    console.log("response", response);
+    if (response.success) {
+      await signOut({ redirect: false });
+      router.push("/login");
+    }
   };
 
   const handlePreview = () => {

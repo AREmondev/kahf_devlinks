@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/InputField";
 import Text from "@/components/ui/Text";
@@ -15,7 +15,6 @@ type LoginFormData = {
 
 export default function Login() {
   const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -23,10 +22,16 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginFormData>();
 
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl") || "/profile";
+  const error = params.get("error") || null;
+
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     const result = await signIn("credentials", {
-      redirect: false,
+      redirect: true,
+      //redurect to profile
+      callbackUrl: "/profile",
       email: data.email,
       password: data.password,
     });
@@ -35,10 +40,9 @@ export default function Login() {
 
     if (result?.ok) {
       console.log("Login successful");
-      router.push("/profile");
+      // router.push("/profile");
     } else {
       setLoading(false);
-      setError("Invalid email or password");
     }
   };
 
@@ -70,7 +74,13 @@ export default function Login() {
             error={errors.password?.message}
           />
           <div className="flex justify-end py-2.5">
-            {error && <Text variant="error">{error}</Text>}
+            {error && (
+              <Text variant="error">
+                {error === "CredentialsSignin"
+                  ? "Invalid credentials. Please try again."
+                  : "An error occurred. Please try again."}
+              </Text>
+            )}
           </div>
           <div className="flex justify-end">
             <Button

@@ -1,4 +1,4 @@
-import { authService } from "@/services/auth";
+import { login } from "@/services/auth.service";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { useCallback } from "react";
@@ -12,10 +12,7 @@ const handler = NextAuth({
         console.log("credentials", credentials);
         try {
           console.log("credentials", credentials);
-          const user = await authService.login(
-            credentials.email,
-            credentials.password
-          );
+          const user = await login(credentials.email, credentials.password);
           return user.data;
         } catch (e) {
           console.error(e);
@@ -48,7 +45,7 @@ const handler = NextAuth({
   // P@ssword1
 
   pages: {
-    signIn: "/signup",
+    signIn: "/login",
   },
 });
 
